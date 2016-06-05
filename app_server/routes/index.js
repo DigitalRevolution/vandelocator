@@ -1,23 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var ctrlMain = require('../controllers/main'); 
 
-/* THIS IS HOW THE APP STARTED */
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-/* END APP ORIGIONAL CODE */ 
+var ctrlLocations = require('../controllers/locations');
+var ctrlOthers = require('../controllers/others');
 
-/* We split controller from router below -- this is now moved to the controllers directory */ 
-/* CONTROLLER */ 
-// var renderIndex = function(req, res, next){
-// 	res.render('index', { title: 'Express', topic: 'Learning Express App Basics' }); 
-// }
+/* LOCATIONS PAGE */
+router.get('/', ctrlLocations.homeList);
+router.get('/location', ctrlLocations.locationInfo);
+router.get('/location/review/new', ctrlLocations.addReview);
 
-
-
-/* ROUTER */ 
-router.get('/', ctrlMain.renderIndex); 
+/* OTHER PAGES */
+router.get('/about', ctrlOthers.renderAbout);
 
 module.exports = router;
