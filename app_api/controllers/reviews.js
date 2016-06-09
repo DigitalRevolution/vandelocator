@@ -92,17 +92,19 @@ module.exports.reviewsReadOne = function (req, res) {
             .select('name reviews')
             .exec(
                 function(err, location){
+                    var response, review, id;
                     if(!location){
-                        sendJsonResponse(res, 404, {'message':'locationid not found'});
+                        sendJsonResponse(res, 404, {'message':'location id not found'});
                         return;
                     } else if (err) {
                         sendJsonResponse(res, 404, err);
                         return;
                     }
                     if (location.reviews && location.reviews.length > 0) {
-                        review = location.reviews.id(req.params.reviewid);
+                        reviewid = req.params.reviewid;
+                        review = location.reviews[reviewid];
                         if(!review) {
-                            sendJsonResponse(res, 404, {'message':'reviewid not found'});
+                            sendJsonResponse(res, 404, {'message':'review id not found '});
                         } else {
                             response = {
                                 location : {

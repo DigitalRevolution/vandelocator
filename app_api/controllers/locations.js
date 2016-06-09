@@ -1,6 +1,13 @@
-var request = require('request'); 
+var request = require('request');
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
+
+var apiOptions = {
+    server : "http://localhost:3000"
+};
+if (process.env.NODE_ENV === 'production') {
+    apiOptions.server = "https://vandelocator.herokuapp.com";
+}
 
 var sendJsonResponse;
 var theEarth;
@@ -47,6 +54,7 @@ module.exports.locationsListByDistance = function (req, res) {
     }
     Loc.geoNear(point, geoOptions, function(err, results, stats){
         var locations = [];
+        console.log(results.length);
         if (err) {
             sendJsonResponse(res, 404, err);
         } else {
@@ -95,9 +103,7 @@ module.exports.locationsReadOne = function (req, res) {
     if (req.params && req.params.locationid) { // make sure we have a locationid in parameters
         Loc
             .findById(req.params.locationid)
-            .select('name reviews')
             .exec(function (err, location) {
-                var response, review;
                 if (!location) {  // if mongoose didn't return a location, 404 and exit
                     sendJsonResponse(res, 404, {'message': 'locationid not found'});
                     return;
@@ -105,26 +111,10 @@ module.exports.locationsReadOne = function (req, res) {
                     sendJsonResponse(res, 404, err);
                     return;
                 }
-                if (location.reviews && location.reviews.length > 0) {
-                    review = location.reviews.id(req.params.reviewid);
-                    if (!review) {
-                        sendJsonResponse(res, 404, {'message':'reviewid not found'});
-                    } else {
-                        response = {
-                            location : {
-                                name : location.name,
-                                id : req.params.locationid
-                            },
-                            review : review
-                        };
-                        sendJsonResponse(res, 200, response); // if there are no errors, proceed
-                    }
-                } else {
-                    sendJsonResponse(res, 404, {'message': 'No reviews found.'});
-                }
+                sendJsonResponse(res, 200, location); // if there are no errors, proceed
             });
     } else {
-        sendJsonResponse(res, 404, {'message': 'No locationid in request'}); // no location id
+        sendJsonResponse(res, 404, {'message': 'No locationid found in request.'});
     }
 };
 
