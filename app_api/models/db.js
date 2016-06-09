@@ -45,4 +45,5 @@ process.on( 'SIGTERM', function(){
     });
 });
 
+// bind schema / model at the end of this file
 require('./locations');
