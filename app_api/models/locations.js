@@ -12,9 +12,9 @@ openingTimeSchema = new mongoose.Schema({
 });
 
 reviewSchema = new mongoose.Schema({
-    author: String,
+    author: {type: String, required: true},
     rating: {type: Number, required: true, min: 0, max: 5},
-    reviewText: String,
+    reviewText: {type: String, required: true},
     createdOn: {type: Date, 'default': Date.now}
 });
 
@@ -22,7 +22,7 @@ locationSchema = new mongoose.Schema({
     name: {type: String, required: true},
     address: String,
     rating: {type: Number, 'default': 0, min: 0, max: 5},
-    facilities: String,
+    facilities: Array,
     coords: {type: [Number], index: '2dsphere', required: true},
     openingTimes: [openingTimeSchema],
     reviews: [reviewSchema]
