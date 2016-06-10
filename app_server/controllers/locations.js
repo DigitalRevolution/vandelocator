@@ -76,8 +76,8 @@ module.exports.homelist = function(req, res){
         method : "GET",
         json : {},
         qs : {
-            lng : -0.7992599,
-            lat : 51.378091,
+            lng : -104.9614616,
+            lat : 39.6967667,
             maxDistance : 20
         }
     };
