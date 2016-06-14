@@ -33,11 +33,12 @@ var _formatDistance = function (distance) {
     var numDistance, unit;
     if (distance && _isNumeric(distance)) {
         if (distance > 1) {
-            numDistance = parseFloat(distance).toFixed(1);
-            unit = 'km';
+            numDistance = parseFloat(distance) / 1609;
+            numDistance = numDistance.toFixed(2);
+            unit = ' miles';
         } else {
-            numDistance = parseInt(distance * 1000,10);
-            unit = 'm';
+            numDistance = parseInt(distance * 5280,10);
+            unit = ' feet';
         }
         return numDistance + unit;
     } else {
@@ -48,6 +49,7 @@ var _formatDistance = function (distance) {
 var renderHomepage = function(req, res, responseBody){
     var message;
     if (!(responseBody instanceof Array)) {
+        console.log('response body not array');
         message = "API lookup error";
         responseBody = [];
     } else {
@@ -55,6 +57,7 @@ var renderHomepage = function(req, res, responseBody){
             message = "No places found nearby";
         }
     }
+    //console.log(responseBody, '<- response body'); // empty array
     res.render('locations-list', {
         title: 'VanDeLocator',
         pageHeader: {
@@ -76,9 +79,9 @@ module.exports.homelist = function(req, res){
         method : "GET",
         json : {},
         qs : {
-            lng : -104.9614616,
+            lng : -104.961461,
             lat : 39.6967667,
-            maxDistance : 20
+            maxDistance : 1609
         }
     };
     request(
@@ -91,6 +94,7 @@ module.exports.homelist = function(req, res){
                     data[i].distance = _formatDistance(data[i].distance);
                 }
             }
+            // console.log(requestOptions);
             renderHomepage(req, res, data);
         }
     );
