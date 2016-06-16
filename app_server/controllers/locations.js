@@ -25,38 +25,17 @@ var _showError = function (req, res, status) {
     });
 };
 
-var _isNumeric = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
-
-var _formatDistance = function (distance) {
-    var numDistance, unit;
-    if (distance && _isNumeric(distance)) {
-        if (distance > 1) {
-            numDistance = parseFloat(distance) / 1609;
-            numDistance = numDistance.toFixed(2);
-            unit = ' miles';
-        } else {
-            numDistance = parseInt(distance * 5280,10);
-            unit = ' feet';
-        }
-        return numDistance + unit;
-    } else {
-        return "?";
-    }
-};
-
 var renderHomepage = function(req, res, responseBody){
     var message;
-    if (!(responseBody instanceof Array)) {
-        console.log('response body not array');
-        message = "API lookup error";
-        responseBody = [];
-    } else {
-        if (!responseBody.length) {
-            message = "No places found nearby";
-        }
-    }
+    //if (!(responseBody instanceof Array)) {
+    //    console.log('response body not array');
+    //    message = "API lookup error";
+    //    responseBody = [];
+    //} else {
+    //    if (!responseBody.length) {
+    //        message = "No places found nearby";
+    //    }
+    //}
     //console.log(responseBody, '<- response body'); // empty array
     res.render('locations-list', {
         title: 'VanDeLocator',
@@ -65,8 +44,8 @@ var renderHomepage = function(req, res, responseBody){
             strapline: 'Find a place to work.'
         },
         sidebar: "Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.",
-        locations: responseBody,
-        message: message
+        // locations: responseBody,
+        // message: message
     });
 };
 
@@ -91,7 +70,7 @@ module.exports.homelist = function(req, res){
             data = body;
             if (response.statusCode === 200 && data.length) {
                 for (i=0; i<data.length; i++) {
-                    data[i].distance = _formatDistance(data[i].distance);
+                    data[i].distance = data[i].distance;
                 }
             }
             // console.log(requestOptions);
@@ -148,7 +127,8 @@ var renderReviewForm = function (req, res, locDetail) {
     res.render('location-review-form', {
         title: 'Review ' + locDetail.name + ' on VanDeLocator',
         pageHeader: { title: 'Review ' + locDetail.name },
-        error: req.query.err
+        error: req.query.err,
+        url: req.originalUrl
     });
 };
 

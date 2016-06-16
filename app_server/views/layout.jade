@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app='VanDeLocatorApp')
   head
     meta(name='viewport', content='width=device-width initial-scale=1.0')
     title= title
@@ -29,6 +29,8 @@ html
             small &copy; Stephen Van Delinder 2016
 
 
+    script(src='/angular/angular.min.js')
+    script(src='/angular/VanDeLocatorApp.js')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/javascripts/validation.js')
