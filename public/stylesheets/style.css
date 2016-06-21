@@ -13,3 +13,6 @@
 .reviewTimestamp {
   color: #ccc;
 }
+input#filter {
+  color: #333;
+}

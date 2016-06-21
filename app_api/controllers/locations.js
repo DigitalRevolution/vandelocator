@@ -30,7 +30,7 @@ module.exports.locationsListByDistance = function(req, res) {
     Loc.geoNear(point, geoOptions, function(err, results, stats) {
         var locations;
         //console.log(geoOptions.maxDistance, 'geoOptions max distance');
-        console.log('Geo Results', results);
+        console.log('Geo Results Acquired');
         console.log('Geo stats', stats);
         if (err) {
             console.log('geoNear error:', err);
@@ -44,7 +44,8 @@ module.exports.locationsListByDistance = function(req, res) {
 
 var buildLocationList = function(req, res, results, stats) {
     var locations = [];
-    console.log('function fired', results);
+    //rs
+    // console.log('function fired', results);
     results.forEach(function(doc) {
         locations.push({
             distance: doc.dis,
