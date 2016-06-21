@@ -10,10 +10,10 @@
                         // We achieve this by assigning a variable to 'this' at the top of the function's scope.
         vm.pageHeader = {
             title: 'VanDeLocator',
-            strapline: 'Find a great place to work in Denver.',
+            strapline: 'Find a place to eat in Denver.'
         };
         vm.sidebar = {
-            content: "MEAN Stack POC."
+            content: "VanDelocator is a mobile responsive, location aware MEAN stack application that showcases proficiency with multiple aspects of MEAN development."
         };
         vm.message = "Checking your location";
         vm.getData = function (position) {
