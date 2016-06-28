@@ -1,3 +1,4 @@
+/* jshint node: true */
 var mongoose = require('mongoose');
 
 var openingTimeSchema;

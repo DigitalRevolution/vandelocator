@@ -2,10 +2,12 @@
     angular
         .module('VanDeLocatorApp')
         .controller('locationDetailCtrl', locationDetailCtrl);
-    locationDetailCtrl.$inject = ['$routeParams','$uibModal', 'vandelocatorData'];
-    function locationDetailCtrl ($routeParams, $uibModal, vandelocatorData) {
+    locationDetailCtrl.$inject = ['$routeParams', '$location', '$uibModal', 'vandelocatorData', 'authentication'];
+    function locationDetailCtrl ($routeParams, $location, $uibModal, vandelocatorData, authentication) {
         var vm = this;
         vm.locationid = $routeParams.locationid;
+        vm.isLoggedIn = authentication.isLoggedIn();
+        vm.currentPath = $location.path();
         vandelocatorData.locationById(vm.locationid)
             .success(function(data) {
                 vm.data = { location: data };

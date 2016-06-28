@@ -1,2 +1,6 @@
-/node_modules
+# Dependency Directory
+node_modules
 /.idea
+
+# Environment Variables
+/.env

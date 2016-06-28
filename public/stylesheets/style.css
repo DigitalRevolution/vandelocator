@@ -16,3 +16,6 @@
 input#filter {
   color: #333;
 }
+.label-warning {
+  margin: 0 5px;
+}

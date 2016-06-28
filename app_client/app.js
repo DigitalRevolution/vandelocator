@@ -13,9 +13,19 @@
                 controller: 'aboutCtrl',
                 controllerAs: 'vm'
             })
-            .when('/location/:locationid', {
+            .when('/location/:locationid', { // this is
                 templateUrl: '/locationDetail/locationDetail.view.html',
                 controller: 'locationDetailCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/register', { // this is in ap_client
+                templateUrl: '/auth/register/register.view.html',
+                controller: 'registerCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/login', {
+                templateUrl: '/auth/login/login.view.html',
+                controller: 'loginCtrl',
                 controllerAs: 'vm'
             })
             .otherwise({redirectTo:'/'});

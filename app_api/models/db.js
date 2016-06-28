@@ -1,13 +1,14 @@
+/* jshint node: true */
+'use strict';
 var mongoose = require('mongoose');
 
 // Define the database to connect to
 var dbURI = 'mongodb://localhost/VanDeLocator';
-if (process.env.NODE_ENV ==='production') {
+if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
 // Open mongoose connection
 mongoose.connect(dbURI);
-
 
 // Create a way to terminate connections (avoid duplicating connections
 var gracefulShutdown = function(msg, callback){
@@ -47,3 +48,4 @@ process.on( 'SIGTERM', function(){
 
 // bind schema / model at the end of this file
 require('./locations');
+require('./users');
